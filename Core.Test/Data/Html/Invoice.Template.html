@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		
+		<meta name="description" content="HMX Labs Invoice">
+		<meta name="author" content="HMX Labs Admin">
+		
+		<title>HMx Labs Invoice</title>		
+	</head>
+	<body>
+		<div class="hmx-invoice-top">
+			<div class="hmx-invoice-client-details hmx-invoice-top-text">
+				<!-- TemplateBeginEditable name="ClientName" -->
+				<!-- TemplateEndEditable -->
+				<br/>
+				<!-- TemplateBeginEditable name="ClientAddress" -->
+				<!-- TemplateEndEditable -->
+				<br/>
+				<br/>
+				<font class="hmx-invoice-top-text-larger">
+					Date: <!-- TemplateBeginEditable name="InvoiceDate" --><!-- TemplateEndEditable -->
+					<br/>
+					Invoice Number: <!-- TemplateBeginEditable name="InvoiceNumber" --><!-- TemplateEndEditable -->
+					<br/>
+				</font>
+			</div>
+			
+			<div class="hmx-invoice-own-details hmx-invoice-top-text">
+				HMx Labs Limited<br/>
+				Suite H, 31-33 College Road<br/>
+				Harrow<br/>
+				HA1 1EJ</br/>
+				<br/>
+				Company Number: 10601521<br/>
+				VAT Number: 264 8043 96
+			</div>
+			
+			<div class="hmx-invoice-top-total-box">
+				<div class="hmx-invoice-top-total-title">
+					TOTAL
+				</div>
+				
+				<div class="hmx-invoice-top-total">
+					<!-- TemplateBeginEditable name="InvoiceTotalHighlight" -->
+					<!-- TemplateEndEditable -->
+				</div>
+			</div>
+		</div>
+		
+		<div class="hmx-invoice-details">
+			<div class="hmx-invoice-details-table-holder">
+				<table class="hmx-invoice-details-table">
+					<tr class="hmx-invoice-details-table-header-text">
+						<td class="hmx-invoice-details-cell" width="320px">Details</td>
+						<td class="hmx-invoice-other-cell" width="70px">Quantity</td>
+						<td width="70px">Unit<br/>Price</td>
+						<td width="70px">VAT<br/>Rate</td>
+						<td width="70px">Net<br/>Amount</td>
+						<td width="70px">VAT</td>
+						<td width="70px">Gross<br/>Amount</td>
+					</tr>
+					<!-- TemplateBeginEditable name="InvoiceItemList" --><!-- TemplateEndEditable -->
+				</table>
+			</div>
+		</div>
+		
+		<div class="hmx-invoice-detail-terminator">
+			
+		</div>
+		
+		<div class="hmx-invoice-payment-details">
+			<font class="hmx-invoice-payment-details-title">
+				PAYMENT DETAILS
+			</font>
+			<br/><br/>
+			<font class="hmx-invoice-payment-details-body">
+				Payment can be made by bank transfer to the account details below. Please ensure you include your 
+				invoice number as the payment reference.
+				<br/>
+				<br/>
+				Account Name: <font class="hmx-invoice-bank-details">HMx Labs Limited</font>
+				<br/>
+				Sort Code: <font class="hmx-invoice-bank-details">16 57 10</font>
+				<br/>
+				Account Number: <font class="hmx-invoice-bank-details">56410888</font>
+			</font>
+		</div>
+		
+		<div class="hmx-invoice-summary">
+			<table class="hmx-invoice-summary-table">
+				<tr>
+					<td class="hmx-invoice-summary-title-cell">
+						Total Net Amount
+					</td>
+					<td class="hmx-invoice-summary-values-cell">
+						<!-- TemplateBeginEditable name="InvoiceNetAmount" -->
+						<!-- TemplateEndEditable -->
+					</td>
+				</tr>
+				<tr><td></td><td></td></tr>
+				<tr>
+					<td class="hmx-invoice-summary-title-cell">
+						Total VAT
+					</td>
+					<td class="hmx-invoice-summary-values-cell">
+						<!-- TemplateBeginEditable name="InvoiceVATAmount" -->
+						<!-- TemplateEndEditable -->
+					</td>
+				</tr>
+				<tr><td></td><td></td></tr>
+				<tr>
+					<td class="hmx-invoice-summary-title-cell">
+						TOTAL
+					</td>
+					<td class="hmx-invoice-summary-values-cell">
+						<!-- TemplateBeginEditable name="InvoiceTotal" -->
+						<!-- TemplateEndEditable -->
+					</td>
+				</tr>
+			</table>
+		</div>
+	</body>
+</html>

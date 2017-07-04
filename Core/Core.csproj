@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{384D37B9-7104-4ED7-8706-5EAE8D1770E3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HmxLabs.Acct.Core</RootNamespace>
+    <AssemblyName>HmxLabs.Acct.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Build\Output\Debug\Core\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Build\Output\Release\Core\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="HmxLabs.Core">
+      <HintPath>..\Build\Dependencies\HmxLabs.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Applet\InvoiceSender.cs" />
+    <Compile Include="Config\AcctConfig.cs" />
+    <Compile Include="Config\IAcctConfig.cs" />
+    <Compile Include="Config\PosixAcctConfig.cs" />
+    <Compile Include="Delivery\Email\EmailInvoiceSender.cs" />
+    <Compile Include="Delivery\Email\EmailInvoiceSenderConfig.cs" />
+    <Compile Include="Delivery\Email\IEmailInvoiceSender.cs" />
+    <Compile Include="Delivery\Email\IEmailInvoiceSenderConfig.cs" />
+    <Compile Include="Delivery\Email\IMailConstructor.cs" />
+    <Compile Include="Delivery\Email\MailConstructor.cs" />
+    <Compile Include="Delivery\IInvoiceSender.cs" />
+    <Compile Include="Persistence\OleDb\OleDbDataReaderExtensions.cs" />
+    <Compile Include="ReportGen\HtmlGen\HtmlInvoiceGen.cs" />
+    <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\DataQualityException.cs" />
+    <Compile Include="Models\Entity.cs" />
+    <Compile Include="Models\IAddress.cs" />
+    <Compile Include="Models\IEntity.cs" />
+    <Compile Include="Models\IInvoice.cs" />
+    <Compile Include="Models\IInvoiceItem.cs" />
+    <Compile Include="Models\Invoice.cs" />
+    <Compile Include="Models\InvoiceDataException.cs" />
+    <Compile Include="Models\InvoiceItem.cs" />
+    <Compile Include="Models\InvoiceItemDataException.cs" />
+    <Compile Include="Models\InvoiceStatus.cs" />
+    <Compile Include="Persistence\IEntityPersist.cs" />
+    <Compile Include="Persistence\IInvoiceItemPersist.cs" />
+    <Compile Include="Persistence\IInvoicePersist.cs" />
+    <Compile Include="Persistence\OleDb\OleDbPersist.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportGen\IInvoiceGen.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
