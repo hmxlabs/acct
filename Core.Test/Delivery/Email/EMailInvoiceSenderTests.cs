@@ -33,7 +33,7 @@ namespace HmxLabs.Acct.Core.Test.Delivery.Email
         public void TestSendArgumentGuards()
         {
             var sender = new EmailInvoiceSender(TestConfig.Instance);
-            Assert.Throws<ArgumentNullException>(() => sender.Send(null, "sdfdskfjd"));
+            Assert.Throws<NullReferenceException>(() => sender.Send(null, "sdfdskfjd"));
             Assert.Throws<ArgumentNullException>(() => sender.Send(Invoice.Sent.Instance, null));
             Assert.Throws<ArgumentException>(() => sender.Send(Invoice.Sent.Instance, string.Empty));
             Assert.Throws<FileNotFoundException>(() => sender.Send(Invoice.Sent.Instance, "non.existent.file.html"));
