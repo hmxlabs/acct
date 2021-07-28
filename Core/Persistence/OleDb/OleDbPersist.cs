@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
 using HmxLabs.Acct.Core.Models;
+using HmxLabs.Acct.Core;
 
 namespace HmxLabs.Acct.Core.Persistence.OleDb
 {
-    public class OleDbPersist : IDisposable, IEntityPersist, IInvoiceItemPersist, IInvoicePersist
+    public class OleDbPersist : IDisposable, IEntityPersist, IInvoiceItemPersist, IInvoicePersist, IExpensePersist
     {
         public OleDbPersist(string connectionString_)
         {
@@ -140,6 +141,52 @@ namespace HmxLabs.Acct.Core.Persistence.OleDb
             }
         }
 
+ public IExpense Load(ulong id_)
+        {
+
+            using (var command = new OleDbCommand(LoadEntityCommand, _connection))
+            {
+                command.Parameters.Add(new OleDbParameter("EntityId", OleDbType.VarChar)).Value = id_;
+                using (var reader = command.ExecuteReader())
+                {
+                    if (null == reader)
+                        throw new DataException($"Null reader object returned when attempting to query Expenses. SQL: [{LoadEntityCommand}], Expense ID [{id_}]");
+
+                    if (!reader.HasRows)
+                        throw new DataException($"Expected to retrieve 1 row when querying Expenses but no rows were returned. SQL: [{LoadEntityCommand}], Expense ID [{id_}]");
+
+                    reader.Read();
+                    return (Expense)ExtractExpenses(reader);
+                }
+            }
+        }
+
+        private IExpense ExtractExpenses(OleDbDataReader reader_)
+        {
+            if (null == reader_)
+                throw new ArgumentNullException(nameof(reader_));
+
+            if (11 != reader_.FieldCount)
+                throw new DataException($"Expected to retrieve 11 columns when querying Expenses. Retrieved {reader_.FieldCount}");
+
+            var expense = new Expense();
+
+            expense.ExpenseId = (ulong) reader_.GetValue(0);
+            expense.InvoiceDate = reader_.GetDateTime(1);
+            expense.PaymentDate = reader_.GetDateTime(2);
+            expense.InvoiceNumber = reader_.GetDecimal(3);
+            expense.Supplier = (IEntity)reader_.GetValue(4);
+            expense.Description = reader_.GetStringOrNull(5);
+            expense.AmountPreVat = reader_.GetDecimal(6);
+            expense.Vat = reader_.GetDecimal(7);
+            expense.TotalInclVat = reader_.GetDecimal(8);
+            expense.Project = reader_.GetStringOrNull(9);
+            expense.PaymentMethod = reader_.GetStringOrNull(10);
+
+            return expense;
+
+        }
+
         private IInvoice ExtractInvoice(OleDbDataReader reader_)
         {
             if (null == reader_)
@@ -225,6 +272,11 @@ namespace HmxLabs.Acct.Core.Persistence.OleDb
 
             return entity;
         }
+        
+    public void Save(IExpense expense_)
+        {
+            throw new NotImplementedException();
+        }    
 
         private readonly OleDbConnection _connection;
 
