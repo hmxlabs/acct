@@ -22,7 +22,7 @@ namespace HmxLabs.Acct.Core.Test.Delivery.Email
         [Test]
         public void TestConstructorCreatesDefaultMailConstructorAndSender()
         {
-            var sender = new EmailInvoiceSender(TestConfig.Instance);
+            var sender = new EmailInvoiceSender(TestEmailInvoiceSenderConfig.Instance);
             Assert.That(sender.Constructor, Is.Not.Null);
             Assert.That(sender.Constructor.GetType() == typeof(MailConstructor));
             Assert.That(sender.Sender, Is.Not.Null);
@@ -32,8 +32,8 @@ namespace HmxLabs.Acct.Core.Test.Delivery.Email
         [Test]
         public void TestSendArgumentGuards()
         {
-            var sender = new EmailInvoiceSender(TestConfig.Instance);
-            Assert.Throws<NullReferenceException>(() => sender.Send(null, "sdfdskfjd"));
+            var sender = new EmailInvoiceSender(TestEmailInvoiceSenderConfig.Instance);
+            Assert.Throws<ArgumentNullException>(() => sender.Send(null, "sdfdskfjd"));
             Assert.Throws<ArgumentNullException>(() => sender.Send(Invoice.Sent.Instance, null));
             Assert.Throws<ArgumentException>(() => sender.Send(Invoice.Sent.Instance, string.Empty));
             Assert.Throws<FileNotFoundException>(() => sender.Send(Invoice.Sent.Instance, "non.existent.file.html"));
@@ -44,7 +44,7 @@ namespace HmxLabs.Acct.Core.Test.Delivery.Email
         {
             var mailConstructor = Substitute.For<IMailConstructor>();
             var mailSender = Substitute.For<IMailSender>();
-            var sender = new EmailInvoiceSender(TestConfig.Instance, mailConstructor, mailSender);
+            var sender = new EmailInvoiceSender(TestEmailInvoiceSenderConfig.Instance, mailConstructor, mailSender);
 
             Assert.Throws<InvalidOperationException>(() => sender.Send(Invoice.NoBillingData.Instance, HtmlFileLocations.UnsentSampleInvoice));
         }
@@ -54,7 +54,7 @@ namespace HmxLabs.Acct.Core.Test.Delivery.Email
         {
             var mailConstructor = Substitute.For<IMailConstructor>();
             var mailSender = Substitute.For<IMailSender>();
-            var sender = new EmailInvoiceSender(TestConfig.Instance, mailConstructor, mailSender);
+            var sender = new EmailInvoiceSender(TestEmailInvoiceSenderConfig.Instance, mailConstructor, mailSender);
 
             sender.Send(Invoice.Unsent.Instance, HtmlFileLocations.UnsentSampleInvoice);
             mailConstructor.ReceivedWithAnyArgs(1).Create(null, null);
@@ -65,7 +65,7 @@ namespace HmxLabs.Acct.Core.Test.Delivery.Email
         {
             var mailConstructor = Substitute.For<IMailConstructor>();
             var mailSender = Substitute.For<IMailSender>();
-            var sender = new EmailInvoiceSender(TestConfig.Instance, mailConstructor, mailSender);
+            var sender = new EmailInvoiceSender(TestEmailInvoiceSenderConfig.Instance, mailConstructor, mailSender);
 
             sender.Send(Invoice.Unsent.Instance, HtmlFileLocations.UnsentSampleInvoice);
             mailSender.ReceivedWithAnyArgs(1).Send(null);

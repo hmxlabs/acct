@@ -9,5 +9,8 @@ namespace HmxLabs.Acct.Core.Test.Data.Config
 
         public const string SampleConfigFilename = "acct.config";
         public static readonly string SampleConfig = Path.Combine(ConfigDirectoryAbsolutePath, SampleConfigFilename);
+
+        public const string AppletConfigFilename = "applet.config";
+        public static readonly string AppletConfig = Path.Combine(ConfigDirectoryAbsolutePath, AppletConfigFilename);
     }
 }

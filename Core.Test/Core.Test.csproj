@@ -56,32 +56,75 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Applet\TransactionImporterTests.cs" />
+    <Compile Include="Cache\AccountCacheTests.cs" />
+    <Compile Include="Cache\AccountReadThruCacheTests.cs" />
+    <Compile Include="Cache\KeyedItemCacheTests.cs" />
+    <Compile Include="Cache\TestKeyedItem.cs" />
     <Compile Include="Config\PosixAcctConfigTests.cs" />
+    <Compile Include="Data\Account.cs" />
     <Compile Include="Data\Config\ConfigFileLocations.cs" />
     <Compile Include="Data\Config\TestConfig.cs" />
+    <Compile Include="Data\Config\TestEmailHtmlBodyGenConfig.cs" />
+    <Compile Include="Data\Config\TestEmailInvoiceSenderConfig.cs" />
+    <Compile Include="Data\Config\TestHtmlInvoiceGenConfig.cs" />
     <Compile Include="Data\Html\HtmlFileLocations.cs" />
     <Compile Include="Data\Invoice.cs" />
     <Compile Include="Data\InvoiceItem.cs" />
+    <Compile Include="Data\Transaction.cs" />
+    <Compile Include="Data\Transactions\TransactionFileLocations.cs" />
+    <Compile Include="Delivery\Email\EmailHtmlBodyGenConfigTests.cs" />
     <Compile Include="Delivery\Email\EmailInvoiceSenderConfigTests.cs" />
     <Compile Include="Delivery\Email\EMailInvoiceSenderTests.cs" />
+    <Compile Include="Extensions\AccountAssert.cs" />
     <Compile Include="Extensions\AddressAssert.cs" />
     <Compile Include="Extensions\ConfigAssert.cs" />
     <Compile Include="Extensions\EntityAssert.cs" />
     <Compile Include="Extensions\InvoiceAssert.cs" />
     <Compile Include="Extensions\InvoiceItemAssert.cs" />
+    <Compile Include="Extensions\TransactionAssert.cs" />
     <Compile Include="Models\EntityTests.cs" />
+    <Compile Include="Models\TransactionProcessorTests.cs" />
+    <Compile Include="Models\TransactionTests.cs" />
+    <Compile Include="Persistence\Disk\CaterAllenTransactionReaderTests.cs" />
+    <Compile Include="Persistence\Disk\NatWestCreditCardPdfReaderTests.cs" />
+    <Compile Include="Persistence\Disk\TransactionFileReaderFactoryTests.cs" />
+    <Compile Include="Persistence\Disk\TransactionReaderTests.cs" />
+    <Compile Include="Persistence\OleDb\OleDbAccountPersistTests.cs" />
     <Compile Include="Persistence\OleDb\OleDbEntityPersistTests.cs" />
     <Compile Include="Persistence\OleDb\OleDbInvoiceItemPersistTests.cs" />
     <Compile Include="Persistence\OleDb\OleDbInvoicePersistTest.cs" />
     <Compile Include="Persistence\OleDb\OleDbPersistTests.cs" />
     <Compile Include="Data\Entity.cs" />
+    <Compile Include="Persistence\OleDb\OleDbTransactionPersistTests.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportGen\HtmlGen\HtmlInvoiceGenConfigTests.cs" />
     <Compile Include="ReportGen\HtmlGen\HtmlInvoiceGenTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <Content Include="Data\Config\acct.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Data\Config\applet.config">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Data\Transactions\ImportSample.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Transactions\CaterAllen-Multiple.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Transactions\CaterAllen.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Data\Transactions\NatWestCreditCardPdf-FailCheckSum.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Transactions\NatWestCreditCardPdf.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

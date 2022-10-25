@@ -1,21 +1,23 @@
 ﻿using System;
 using System.IO;
 using System.Net.Mail;
+using System.Net.Mime;
 using System.Text;
 using HmxLabs.Acct.Core.Models;
 using HmxLabs.Acct.Core.ReportGen.HtmlGen;
-using HmxLabs.Core.Base;
+using HmxLabs.Core.DateTIme;
 
 namespace HmxLabs.Acct.Core.Delivery.Email
 {
     public class MailConstructor : IMailConstructor
     {
-        public MailConstructor(IEmailInvoiceSenderConfig config_)
+        public MailConstructor(IEmailInvoiceSenderConfig config_, IHtmlInvoiceGen htmlEMailBodyGen_ = null)
         {
             if (null == config_)
                 throw new ArgumentNullException(nameof(config_));
 
             Config = config_;
+            HtmlEMailBodyGen = htmlEMailBodyGen_;
         }
 
         public MailMessage Create(IInvoice invoice_, string generatedInvoice_)
@@ -42,6 +44,12 @@ namespace HmxLabs.Acct.Core.Delivery.Email
             message.IsBodyHtml = false;
             message.Attachments.Add(CreateAttachment(invoice_, generatedInvoice_));
 
+            if (null == HtmlEMailBodyGen)
+                return message;
+
+            var html = HtmlEMailBodyGen.Generate(invoice_);
+            var altView = AlternateView.CreateAlternateViewFromString(html, new ContentType("text/html"));
+            message.AlternateViews.Add(altView);
             return message;
         }
         
@@ -78,7 +86,8 @@ namespace HmxLabs.Acct.Core.Delivery.Email
         private Attachment CreateAttachment(IInvoice invoice_, string filename_)
         {
             var attachment = new Attachment(filename_);
-            attachment.ContentDisposition.FileName = $"{Config.AttachmentBaseName}-N{invoice_.Number}-D{invoice_.InvoiceDate.ToExplicitDateDisplayString()}";
+            var extension = Path.GetExtension(filename_);
+            attachment.ContentDisposition.FileName = $"{Config.AttachmentBaseName}-N{invoice_.Number}-D{invoice_.InvoiceDate.ToExplicitDateDisplayString()}.{extension}";
 
             return attachment;
         }
@@ -89,5 +98,7 @@ namespace HmxLabs.Acct.Core.Delivery.Email
         }
 
         public IEmailInvoiceSenderConfig Config { get; }
+
+        public IHtmlInvoiceGen HtmlEMailBodyGen { get; }
     }
 }

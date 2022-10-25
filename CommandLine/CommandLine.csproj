@@ -54,9 +54,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandLineParams.cs" />
+    <Compile Include="CommandLineVerbs.cs" />
+    <Compile Include="CommonParams.cs" />
     <Compile Include="ICommandLineParams.cs" />
+    <Compile Include="ImportStatementParams.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SendInvoiceParams.cs" />
+    <Compile Include="VerbCommandLineParams.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="acct.test.config">

@@ -18,6 +18,9 @@ namespace HmxLabs.Acct.Core.Delivery.Email
 
         public void Send(IInvoice invoice_, string generatedInvoiceLocation_)
         {
+            if (null == invoice_)
+                throw new ArgumentNullException(nameof(invoice_));
+
             if (string.IsNullOrWhiteSpace(invoice_.Client.BillingEmail))
                 throw new InvalidOperationException("The client associated with the provided invoice does not have a billing email address defined");
 

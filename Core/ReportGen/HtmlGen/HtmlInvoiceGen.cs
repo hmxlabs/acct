@@ -1,40 +1,30 @@
 ﻿using System;
-using System.Globalization;
 using System.IO;
 using System.Text;
 using HmxLabs.Acct.Core.Models;
-using HmxLabs.Core.Base;
 using HmxLabs.Core.Html;
 
 namespace HmxLabs.Acct.Core.ReportGen.HtmlGen
 {
-    public class HtmlInvoiceGen : IInvoiceGen
+    public class HtmlInvoiceGen : IHtmlInvoiceGen
     {
-        public HtmlInvoiceGen(string invoiceTemplateFile_, string invoiceItemTemplateFile_)
+        public HtmlInvoiceGen(IHtmlInvoiceGenConfig config_)
         {
-            if (null == invoiceItemTemplateFile_)
-                throw new ArgumentNullException(nameof(invoiceItemTemplateFile_));
+            if (null == config_)
+                throw new ArgumentNullException(nameof(config_));
 
-            if (null == invoiceTemplateFile_)
-                throw new ArgumentNullException(nameof(invoiceTemplateFile_));
+            if (!File.Exists(config_.InvoiceTemplateFile))
+                throw new FileNotFoundException($"The specified invoice template file [{config_.InvoiceTemplateFile}] does not exist");
 
-            if (string.IsNullOrWhiteSpace(invoiceTemplateFile_))
-                throw new ArgumentException("An empty invoice template file was provided", nameof(invoiceTemplateFile_));
+            if (!File.Exists(config_.InvoiceItemTemplateFile))
+                throw new FileNotFoundException($"The specified invoice item template file [{config_.InvoiceItemTemplateFile}] does not exist");
 
-            if (string.IsNullOrWhiteSpace(invoiceItemTemplateFile_))
-                throw new ArgumentException("An empty invoice item template file was provided", nameof(invoiceItemTemplateFile_));
-
-            if (!File.Exists(invoiceTemplateFile_))
-                throw new FileNotFoundException($"The specified invoice template file [{invoiceTemplateFile_}] does not exist");
-
-            if (!File.Exists(invoiceItemTemplateFile_))
-                throw new FileNotFoundException($"The specified invoice item template file [{invoiceItemTemplateFile_}] does not exist");
-
-            _invoiceTemplate = File.ReadAllText(invoiceTemplateFile_);
-            _invoiceItemTemplate = File.ReadAllText(invoiceItemTemplateFile_);
+            OutputPath = config_.SaveLocation;
+            _invoiceTemplate = File.ReadAllText(config_.InvoiceTemplateFile);
+            _invoiceItemTemplate = File.ReadAllText(config_.InvoiceItemTemplateFile);
         }
 
-        public string OutputPath { get; set; }
+        public string OutputPath { get; }
         public string Generate(IInvoice invoice_)
         {
             if (null == invoice_)
@@ -73,14 +63,9 @@ namespace HmxLabs.Acct.Core.ReportGen.HtmlGen
             if (!Directory.Exists(OutputPath))
                 Directory.CreateDirectory(OutputPath);
 
-            var filename = Path.Combine(OutputPath, GenerateFilename(invoice_));
+            var filename = Path.Combine(OutputPath, InvoiceFilename.Generate(invoice_, "html"));
             File.WriteAllText(filename, Generate(invoice_));
             return filename;
-        }
-
-        private string GenerateFilename(IInvoice invoice_)
-        {
-            return $"{invoice_.InvoiceDate.ToIsoDateString()}--{invoice_.Number}--{invoice_.Client.DisplayName}.html";
         }
 
         private string GenerateClientAddress(IAddress address_)

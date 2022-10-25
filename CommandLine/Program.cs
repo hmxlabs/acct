@@ -8,34 +8,68 @@ namespace HmxLabs.AcctCommandLine
     {
         public static void Main(string[] args_)
         {
-            ILogger logger = null;
+            var app = new Program();
+            app.RunMain(args_);
+        }
+
+        private void RunMain(string[] args_)
+        {
+            _logger = null;
             try
             {
-                logger = new ConsoleLogger("default");
-                logger.Open();
-                logger.Info("Starting Acct CLI...");
-                var cliParams = new CommandLineParams();
-                if (!cliParams.Read(args_))
+                _logger = new ConsoleLogger("default");
+                _logger.Open();
+                _logger.Info("Starting Acct CLI...");
+
+                var commandLineParams = new VerbCommandLineParams();
+                var parseStatus = CommandLine.Parser.Default.ParseArguments(args_, commandLineParams, OnParse);
+                if (!parseStatus)
                 {
-                    if (!cliParams.InvoiceNumber.HasValue)
-                        logger.Error("No value for the invoice number was supplied");
-                    else
-                        logger.Error("Unable to correctly parse the command line options. Please see help output above");
-
-                    return;
+                    _logger.Error("Unable to correctly parse the command line options. Please see help output above");
+                    Environment.Exit(CommandLine.Parser.DefaultExitCodeFail);
                 }
-
-                logger.Notice("Using settings from file: ", cliParams.ConfigFile);
-                var senderApplet = new InvoiceSender(logger, cliParams.ConfigFile);
-                senderApplet.Run(cliParams.InvoiceNumber.Value);
             }
             catch (Exception exp)
             {
-                if (null == logger)
+                if (null == _logger)
                     Console.WriteLine($"Something went very wrong! Sorry about that. The details are below:\r\n{exp}");
                 else
-                    logger.Fatal(exp, "Something went very wrong! Sorry about that. The details are below");
+                    _logger.Fatal(exp, "Something went very wrong! Sorry about that. The details are below");
             }
         }
+
+        private void OnParse(string verb_, object params_)
+        {
+            switch (verb_)
+            {
+                case CommandLineVerbs.SendInvoice:
+                    OnSendInvoice((SendInvoiceParams)params_);
+                    break;
+
+                case CommandLineVerbs.ImportStatement:
+                    OnImportStatement((ImportStatementParams)params_);
+                    break;
+
+                default:
+                    _logger.Fatal($"Unrecognised command [{verb_}]. Unable to proceed");
+                    break;
+            }
+        }
+
+        private void OnSendInvoice(SendInvoiceParams params_)
+        {
+            var senderApplet = new InvoiceSender(_logger, params_.ConfigFile);
+            if (params_.InvoiceNumber.HasValue)
+                senderApplet.Run(params_.InvoiceNumber.Value);
+            else
+                _logger.Error("No value for the invoice number was supplied");
+        }
+
+        private void OnImportStatement(ImportStatementParams params_)
+        {
+            var importerApplet = new TransactionImporter(_logger, params_.ConfigFile);
+            importerApplet.Run(params_.Account, params_.Filename, params_.Type);
+        }
+        private ILogger _logger;
     }
 }

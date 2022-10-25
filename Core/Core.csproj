@@ -32,8 +32,14 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CsvHelper">
+      <HintPath>..\Build\Dependencies\CsvHelper.dll</HintPath>
+    </Reference>
     <Reference Include="HmxLabs.Core">
       <HintPath>..\Build\Dependencies\HmxLabs.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="NReco.PdfGenerator">
+      <HintPath>..\Build\Dependencies\NReco.PdfGenerator.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -45,10 +51,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Applet\BaseApp.cs" />
     <Compile Include="Applet\InvoiceSender.cs" />
+    <Compile Include="Applet\TransactionImporter.cs" />
+    <Compile Include="Cache\AccountCache.cs" />
+    <Compile Include="Cache\AccountReadThruCache.cs" />
+    <Compile Include="Cache\IAccountCache.cs" />
+    <Compile Include="Cache\IAccountReadThroughCache.cs" />
+    <Compile Include="Cache\IKeyedItemCache.cs" />
+    <Compile Include="Cache\ITransactionCache.cs" />
+    <Compile Include="Cache\KeyedItemCache.cs" />
+    <Compile Include="Cache\TransactionCache.cs" />
     <Compile Include="Config\AcctConfig.cs" />
     <Compile Include="Config\IAcctConfig.cs" />
     <Compile Include="Config\PosixAcctConfig.cs" />
+    <Compile Include="Delivery\Email\EmailHtmlBodyGenConfig.cs" />
     <Compile Include="Delivery\Email\EmailInvoiceSender.cs" />
     <Compile Include="Delivery\Email\EmailInvoiceSenderConfig.cs" />
     <Compile Include="Delivery\Email\IEmailInvoiceSender.cs" />
@@ -56,6 +73,28 @@
     <Compile Include="Delivery\Email\IMailConstructor.cs" />
     <Compile Include="Delivery\Email\MailConstructor.cs" />
     <Compile Include="Delivery\IInvoiceSender.cs" />
+    <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\AccountType.cs" />
+    <Compile Include="Models\DuplicateCheckedTransactions.cs" />
+    <Compile Include="Models\Expense.cs" />
+    <Compile Include="Models\ExpenseDataException.cs" />
+    <Compile Include="Models\IAccount.cs" />
+    <Compile Include="Models\IDuplicateCheckedTransactions.cs" />
+    <Compile Include="Models\IExpense.cs" />
+    <Compile Include="Models\IKeyed.cs" />
+    <Compile Include="Models\ITransaction.cs" />
+    <Compile Include="Models\ITransactionProcessor.cs" />
+    <Compile Include="Models\Transaction.cs" />
+    <Compile Include="Models\TransactionProcessor.cs" />
+    <Compile Include="Persistence\Disk\CaterAllenTransactionReader.cs" />
+    <Compile Include="Persistence\Disk\CsvTransactionReader.cs" />
+    <Compile Include="Persistence\Disk\ITransactionFileReader.cs" />
+    <Compile Include="Persistence\Disk\NatWestCreditCardPdfReader.cs" />
+    <Compile Include="Persistence\Disk\TransactionFileReaderFactory.cs" />
+    <Compile Include="Persistence\Disk\TransactionFileType.cs" />
+    <Compile Include="Persistence\IAccountPersist.cs" />
+    <Compile Include="Persistence\IExpensePersist.cs" />
+    <Compile Include="Persistence\ITransactionPersist.cs" />
     <Compile Include="Persistence\OleDb\OleDbDataReaderExtensions.cs" />
     <Compile Include="ReportGen\HtmlGen\HtmlInvoiceGen.cs" />
     <Compile Include="Models\Address.cs" />
@@ -75,7 +114,13 @@
     <Compile Include="Persistence\IInvoicePersist.cs" />
     <Compile Include="Persistence\OleDb\OleDbPersist.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportGen\HtmlGen\HtmlInvoiceGenConfig.cs" />
+    <Compile Include="ReportGen\HtmlGen\IHtmlInvoiceGen.cs" />
+    <Compile Include="ReportGen\HtmlGen\IHtmlInvoiceGenConfig.cs" />
     <Compile Include="ReportGen\IInvoiceGen.cs" />
+    <Compile Include="ReportGen\IInvoiceGenConfig.cs" />
+    <Compile Include="ReportGen\InvoiceFilename.cs" />
+    <Compile Include="ReportGen\PdfGen\PdfFromHtmlGenerator.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

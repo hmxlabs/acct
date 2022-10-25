@@ -22,7 +22,7 @@ namespace HmxLabs.Acct.Core.Test.Delivery.Email
         {
             var posixConfigReader = new PosixConfigReader(ConfigFileLocations.SampleConfig);
             var emailSenderConfig = new EmailInvoiceSenderConfig(posixConfigReader);
-            ConfigAssert.AssertEquals(TestConfig.Instance, emailSenderConfig);
+            ConfigAssert.AssertEquals(TestEmailInvoiceSenderConfig.Instance, emailSenderConfig);
         }
     }
 }
