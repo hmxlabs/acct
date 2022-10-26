@@ -11,6 +11,7 @@ namespace HmxLabs.Acct.Core.Test.Data
             public static class Values
             {
                 public const ulong Number = 4;
+                public const string PurchaseOrder = "ACME-PO-001";
                 public static readonly DateTime InvoiceDate = new DateTime(2017, 1, 1);
                 public const decimal NetTotal = 80.585M;
                 public const decimal VatTotal = 16.117M;
@@ -23,6 +24,7 @@ namespace HmxLabs.Acct.Core.Test.Data
             public static IInvoice Instance => new Unsent();
 
             public ulong Number => Values.Number;
+            public string PurchaseOrder => Values.PurchaseOrder;
             public DateTime InvoiceDate => Values.InvoiceDate;
             public IEntity Client => Entity.Acme.Instance;
             public decimal NetTotal => Values.NetTotal;
@@ -48,6 +50,7 @@ namespace HmxLabs.Acct.Core.Test.Data
             public static class Values
             {
                 public const ulong Number = 5;
+                public const string PurchaseOrder = "PO-1";
                 public static readonly DateTime InvoiceDate = new DateTime(2017, 6, 1);
                 public const decimal NetTotal = 12000M;
                 public const decimal VatTotal = 1800M;
@@ -60,6 +63,7 @@ namespace HmxLabs.Acct.Core.Test.Data
             public static IInvoice Instance => new Sent();
 
             public ulong Number => Values.Number;
+            public string PurchaseOrder => Values.PurchaseOrder;
             public DateTime InvoiceDate => Values.InvoiceDate;
             public IEntity Client => Entity.Acme.Instance;
             public decimal NetTotal => Values.NetTotal;
@@ -85,6 +89,7 @@ namespace HmxLabs.Acct.Core.Test.Data
             public static class Values
             {
                 public const ulong Number = 6;
+                public const string PurchaseOrder = "PO::001";
                 public static readonly DateTime InvoiceDate = new DateTime(2016, 7, 1);
                 public const decimal NetTotal = 450M;
                 public const decimal VatTotal = 90M;
@@ -97,6 +102,7 @@ namespace HmxLabs.Acct.Core.Test.Data
             public static IInvoice Instance => new NoBillingData();
 
             public ulong Number => Values.Number;
+            public string PurchaseOrder => Values.PurchaseOrder;
             public DateTime InvoiceDate => Values.InvoiceDate;
             public IEntity Client => Entity.NoBill.Instance;
             public decimal NetTotal => Values.NetTotal;

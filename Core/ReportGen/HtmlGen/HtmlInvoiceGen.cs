@@ -35,6 +35,7 @@ namespace HmxLabs.Acct.Core.ReportGen.HtmlGen
             htmlEditor.UpdateEditRegionValue(InvoiceTags.ClientAddress, GenerateClientAddress(invoice_.Client.Address));
             htmlEditor.UpdateEditRegionValue(InvoiceTags.InvoiceDate, invoice_.InvoiceDate.ToLongDateString());
             htmlEditor.UpdateEditRegionValue(InvoiceTags.Number, invoice_.Number.ToString());
+            htmlEditor.UpdateEditRegionValue(InvoiceTags.PurchaseOrder, invoice_.PurchaseOrder);
             htmlEditor.UpdateEditRegionValue(InvoiceTags.TotalHighlight, invoice_.GrossTotal.ToCurrencyString());
             htmlEditor.UpdateEditRegionValue(InvoiceTags.NetTotal, invoice_.NetTotal.ToCurrencyString());
             htmlEditor.UpdateEditRegionValue(InvoiceTags.VatTotal, invoice_.VatTotal.ToCurrencyString());
@@ -171,6 +172,7 @@ namespace HmxLabs.Acct.Core.ReportGen.HtmlGen
             public const string ClientAddress = "ClientAddress";
             public const string InvoiceDate = "InvoiceDate";
             public const string Number = "InvoiceNumber";
+            public const string PurchaseOrder = "PurchaseOrder";
             public const string TotalHighlight = "InvoiceTotalHighlight";
             public const string ItemList = "InvoiceItemList";
             public const string NetTotal = "InvoiceNetAmount";

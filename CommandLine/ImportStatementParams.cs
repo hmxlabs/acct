@@ -11,7 +11,7 @@ namespace HmxLabs.AcctCommandLine
         [Option('f', "filename", Required = true, HelpText = "The filename of the file to import")]
         public string Filename { get; set; }
 
-        [Option('a', "accountr", Required = true, HelpText = "The existing account the entries should be added to")]
+        [Option('a', "account", Required = true, HelpText = "The existing account the entries should be added to")]
         public string Account { get; set; }
     }
 }

@@ -276,7 +276,7 @@ namespace HmxLabs.Acct.Core.Persistence.OleDb
             if (null == reader_)
                 throw new ArgumentNullException(nameof(reader_));
 
-            if (9 != reader_.FieldCount)
+            if (10 != reader_.FieldCount)
                 throw new DataException($"Expected to retrieve 9 columns when querying InvoiceItems. Retrieved {reader_.FieldCount}");
 
             var invoice = new Invoice();
@@ -290,6 +290,7 @@ namespace HmxLabs.Acct.Core.Persistence.OleDb
             invoice.PaymentDate = reader_.GetNullableDateTime(6);
             var status = reader_.GetString(7);
             invoice.Project = reader_.GetStringOrNull(8);
+            invoice.PurchaseOrder = reader_.GetStringOrNull(9);
 
             var items = LoadInvoiceItems(invoice.Number);
             foreach (var item in items)
@@ -417,7 +418,7 @@ namespace HmxLabs.Acct.Core.Persistence.OleDb
 
         private const string LoadEntityCommand = "SELECT Entity.ID, Entity.Name, Entity.FirstName, Entity.DoorNumber, Entity.Building, Entity.StreetNumber, Entity.StreetName, Entity.City, Entity.PostCode, Entity.Country, Entity.Website, Entity.Phone, Entity.IsCorp, Entity.BillingEmail FROM Entity WHERE Entity.ID = ?";
         private const string LoadInvoiceItemsCommand = "SELECT InvoiceItems.ItemId, InvoiceItems.Description, InvoiceItems.UnitCost, InvoiceItems.Quantity, InvoiceItems.VATRate, InvoiceItems.NetTotal, InvoiceItems.VAT, InvoiceItems.GrossTotal FROM InvoiceItems WHERE InvoiceItems.InvoiceId = ? ORDER BY InvoiceItems.ItemId";
-        private const string LoadInvoiceCommand = "SELECT InvoicesWithTotals.InvoiceNumber, InvoicesWithTotals.InvoiceDate, InvoicesWithTotals.ClientId, InvoicesWithTotals.NetTotal, InvoicesWithTotals.VAT, InvoicesWithTotals.GrossTotal, InvoicesWithTotals.PaymentDate, InvoicesWithTotals.Status, InvoicesWithTotals.Project FROM InvoicesWithTotals WHERE InvoicesWithTotals.InvoiceNumber = ?";
+        private const string LoadInvoiceCommand = "SELECT InvoicesWithTotals.InvoiceNumber, InvoicesWithTotals.InvoiceDate, InvoicesWithTotals.ClientId, InvoicesWithTotals.NetTotal, InvoicesWithTotals.VAT, InvoicesWithTotals.GrossTotal, InvoicesWithTotals.PaymentDate, InvoicesWithTotals.Status, InvoicesWithTotals.Project, InvoicesWithTotals.PurchaseOrder FROM InvoicesWithTotals WHERE InvoicesWithTotals.InvoiceNumber = ?";
         private const string LoadTransactionsCommand = "SELECT Transactions.TransactionId, Transactions.Account, Transactions.TransactionDate, Transactions.PostDate, Transactions.Description, Transactions.Amount, Transactions.RunningBalance, Transactions.Notes FROM Transactions WHERE Transactions.TransactionDate >= ? AND Transactions.TransactionDate <= ?";
         private const string LoadAccountCommand = "SELECT Accounts.AccountId, Accounts.Provider, Accounts.AccountNumber, Accounts.Type, Accounts.Currency, Accounts.Description FROM Accounts WHERE Accounts.AccountId = ?";
 

@@ -14,6 +14,8 @@ namespace HmxLabs.Acct.Core.Models
         public decimal VatTotal { get; set; }
         public decimal GrossTotal { get; set; }
         public string Project { get; set; }
+
+        public string PurchaseOrder { get; set; }
         public DateTime? PaymentDate { get; set; }
         public InvoiceStatus Status { get; set; }
 

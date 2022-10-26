@@ -12,6 +12,7 @@ namespace HmxLabs.Acct.Core.Models
         decimal VatTotal { get; }
         decimal GrossTotal { get; }
         string Project { get; }
+        string PurchaseOrder { get; }
         DateTime? PaymentDate { get; }
         InvoiceStatus Status { get; }
         IList<IInvoiceItem> Items { get; }
