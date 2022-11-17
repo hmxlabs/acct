@@ -38,7 +38,7 @@ namespace HmxLabs.Acct.Core.Persistence.Disk
                 var csvReader = new CsvReader(reader, config);
                 while (csvReader.Read())
                 {
-                    var transaction = ParseRow(csvReader.CurrentRecord);
+                    var transaction = ParseRow(filename_, csvReader.CurrentRecord);
                     if (null != transaction)
                         transactions.Add(transaction);
                 }
@@ -55,6 +55,11 @@ namespace HmxLabs.Acct.Core.Persistence.Disk
         }
 
         protected abstract bool HasHeader { get; }
+
+        protected virtual ITransaction ParseRow(string filename_, string[] line_)
+        {
+            return ParseRow(line_);
+        }
 
         protected abstract ITransaction ParseRow(string[] line_);
 

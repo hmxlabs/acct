@@ -38,6 +38,13 @@ namespace HmxLabs.Acct.Core.Test.Persistence.Disk
             Assert.Throws<Exception>(() => reader.Read(TransactionFileLocations.NatWestCreditCardPdfFailChecksum));
         }
 
+        [Test]
+        public void TestYearParseFailureThrowsException()
+        {
+            var reader = GetReader();
+            Assert.Throws<Exception>(() => reader.Read(TransactionFileLocations.NatWestCreditCardPdfFailYearParse));
+        }
+
         protected override ITransactionFileReader GetReader()
         {
             var reader = new NatWestCreditCardPdfReader();

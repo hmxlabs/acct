@@ -23,6 +23,12 @@ namespace HmxLabs.Acct.Core.Persistence.Disk
 
         protected override ITransaction ParseRow(string[] line_)
         {
+            // This should never be called as we override the ParseRow(string, string[]) method to not call this
+            throw new NotImplementedException();
+        }
+
+        protected override ITransaction ParseRow(string filename_, string[] line_)
+        {
             var amountIndex = FindAmountIndex(line_);
             if (!_initialBalanceProcessed)
             {
@@ -43,10 +49,10 @@ namespace HmxLabs.Acct.Core.Persistence.Disk
             // 29 JAN 30 JAN 47845216 FASTHOSTS INTERNET 03330142700 13.19 
             // 30 JAN 31 JAN 54423789 FASTHOSTS INTERNET 03330142700 24.00
             // 02 FEB 02 FEB 00268600 FASTER PAYMENT RECEIVED - THANK YOU 211.63 
-            
+
             var transaction = new Transaction();
-            transaction.TransactionDate = CreateDate(line_[0], line_[1]);
-            transaction.PostDate = CreateDate(line_[2], line_[3]);
+            transaction.TransactionDate = CreateDate(line_[0], line_[1], filename_);
+            transaction.PostDate = CreateDate(line_[2], line_[3], filename_);
 
             transaction.Description = CreateDescription(line_, amountIndex);
 
@@ -129,7 +135,7 @@ namespace HmxLabs.Acct.Core.Persistence.Disk
             return description.ToString();
         }
 
-        private DateTime CreateDate(string day_, string month_)
+        private DateTime CreateDate(string day_, string month_, string filename_)
         {
             int day;
             if (!int.TryParse(day_, out day))
@@ -137,7 +143,27 @@ namespace HmxLabs.Acct.Core.Persistence.Disk
 
             var month = DateTime.ParseExact(month_, "MMM", CultureInfo.InvariantCulture).Month;
 
-            return new DateTime(TransactionYear, month, day);
+            return new DateTime(ExtractYearFromFilename(filename_), month, day);
+        }
+
+        private int ExtractYearFromFilename(string filename_)
+        {
+            // Filename is assumed to contain the year as the first four digits. If it doesn't then fail
+            var yearStr = filename_.Substring(0, 4);
+            int year;
+            try
+            {
+                year = int.Parse(yearStr);
+            }
+            catch(Exception exp)
+            {
+                throw new DataQualityException("Unable to extract a year from the filename", exp);
+            }
+
+            if (1900 > year || 2100 < year)
+                throw new DataQualityException($"The year extracted from the filename can't be correct: {year}");
+
+            return year;
         }
 
         private bool _initialBalanceProcessed;

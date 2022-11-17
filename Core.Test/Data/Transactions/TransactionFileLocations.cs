@@ -13,11 +13,14 @@ namespace HmxLabs.Acct.Core.Test.Data.Transactions
         public const string CaterAllenSampleFilename = "CaterAllen.csv";
         public static readonly string CaterAllenSample = Path.Combine(TransactionsDirectoryAbsolutePath, CaterAllenSampleFilename);
 
-        public const string NatWestCreditCardPdfSampleFilename = "NatWestCreditCardPdf.txt";
+        public const string NatWestCreditCardPdfSampleFilename = "2021-NatWestCreditCardPdf.txt";
         public static readonly string NatWestCreditCardPdfSample = Path.Combine(TransactionsDirectoryAbsolutePath, NatWestCreditCardPdfSampleFilename);
 
-        public const string NatWestCreditCardPdfFailChecksumFilename = "NatWestCreditCardPdf-FailChecksum.txt";
+        public const string NatWestCreditCardPdfFailChecksumFilename = "2022-NatWestCreditCardPdf-FailChecksum.txt";
         public static readonly string NatWestCreditCardPdfFailChecksum = Path.Combine(TransactionsDirectoryAbsolutePath, NatWestCreditCardPdfFailChecksumFilename);
+
+        public const string NatWestCreditCardPdfFailYearParseFilename = "FailNameParse.txt";
+        public static readonly string NatWestCreditCardPdfFailYearParse = Path.Combine(TransactionsDirectoryAbsolutePath, NatWestCreditCardPdfFailChecksumFilename);
 
         public const string CaterAllenMultipleSampleFilename = "CaterAllen-Multiple.csv";
         public static readonly string CaterAllenMultipleSample = Path.Combine(TransactionsDirectoryAbsolutePath, CaterAllenMultipleSampleFilename);

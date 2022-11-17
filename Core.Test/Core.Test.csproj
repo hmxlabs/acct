@@ -121,10 +121,13 @@
     <None Include="Data\Transactions\CaterAllen.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Content Include="Data\Transactions\NatWestCreditCardPdf-FailCheckSum.txt">
+    <Content Include="Data\Transactions\FailNameParse.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\Transactions\NatWestCreditCardPdf.txt">
+    <Content Include="Data\Transactions\2022-NatWestCreditCardPdf-FailCheckSum.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Transactions\2021-NatWestCreditCardPdf.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
