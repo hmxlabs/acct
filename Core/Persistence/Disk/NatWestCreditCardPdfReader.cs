@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.IO;
 using System.Text;
 using CsvHelper;
 using HmxLabs.Acct.Core.Models;
@@ -11,13 +12,10 @@ namespace HmxLabs.Acct.Core.Persistence.Disk
         public NatWestCreditCardPdfReader(IAccount account_ = null)
         {
             TransactionAccount = account_;
-            TransactionYear = DateTime.Now.Year;
             Delimiter = " ";
         }
 
         public override TransactionFileType Type => TransactionFileType.NatWestCreditPdf;
-
-        public int TransactionYear { get; set; }
 
         protected override bool HasHeader => false;
 
@@ -149,7 +147,8 @@ namespace HmxLabs.Acct.Core.Persistence.Disk
         private int ExtractYearFromFilename(string filename_)
         {
             // Filename is assumed to contain the year as the first four digits. If it doesn't then fail
-            var yearStr = filename_.Substring(0, 4);
+            var filenameOnly = Path.GetFileName(filename_);
+            var yearStr = filenameOnly.Substring(0, 4);
             int year;
             try
             {

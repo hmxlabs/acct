@@ -24,6 +24,7 @@ namespace HmxLabs.Acct.Core.Test.Persistence.Disk
             transaction = transactions[1];
             Assert.That(transaction.Amount, Is.EqualTo(-13.19));
             Assert.That(transaction.Description, Is.EqualTo("ACME WIDGETS INC - REF: 47845216"));
+            Assert.That(transaction.PostDate.Year, Is.EqualTo(2021));
 
             transaction = transactions.Last();
             Assert.That(transaction.Amount, Is.EqualTo(211.63M));
@@ -49,7 +50,6 @@ namespace HmxLabs.Acct.Core.Test.Persistence.Disk
         {
             var reader = new NatWestCreditCardPdfReader();
             reader.TransactionAccount = Account.CurrentAccount.Instant;
-            reader.TransactionYear = 2001;
             return reader;
         }
     }
