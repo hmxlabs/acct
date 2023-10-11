@@ -13,10 +13,7 @@ namespace HmxLabs.Acct.Core.Delivery.Email
     {
         public MailConstructor(IEmailInvoiceSenderConfig config_, IHtmlInvoiceGen htmlEMailBodyGen_ = null)
         {
-            if (null == config_)
-                throw new ArgumentNullException(nameof(config_));
-
-            Config = config_;
+            Config = config_ ?? throw new ArgumentNullException(nameof(config_));
             HtmlEMailBodyGen = htmlEMailBodyGen_;
         }
 
